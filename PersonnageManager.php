@@ -35,7 +35,7 @@ class PersonnageManager {
     public function deletePersonnage(Personnage $pPerso) {
         $query = $this->_db->prepare('DELETE FROM personnages_v2 WHERE id = ?');
         $query->execute([
-            'id' => $pPerso->getId()
+            $pPerso->getId()
         ]);
     }
 
@@ -98,11 +98,11 @@ class PersonnageManager {
 
     /* Permet de mettre à jour les caractéristiques d'un personnage */
     public function update(Personnage $pPerso) {
-        $query = $this->_db->prepare('UPDATE personnages SET degats = ?, timeEndormi = ?, atout = ? WHERE id = ?');
+        $query = $this->_db->prepare('UPDATE personnages SET degats = ?, atout = ? WHERE id = ?');
         $query->execute([
-           $pPerso->getDegats(),
-           $pPerso->getTimeendormi(),
-           $pPerso->getAtout()
+            $pPerso->getDegats(),
+            $pPerso->getAtout(),
+            $pPerso->getId()
         ]);
     }
 }

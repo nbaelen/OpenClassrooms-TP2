@@ -66,12 +66,10 @@ if (isset($_GET['frapper'])) {
             case Personnage::PERSONNAGE_BLESSE :
                 $message = 'Vous venez de frapper le personnage !';
                 $manager->update($persoCible);
-                $manager->update($perso);
                 break;
             case Personnage::PERSONNAGE_TUE :
                 $message = 'Le personnage a été tué !';
                 $manager->deletePersonnage($persoCible);
-                $manager->update($perso);
                 break;
         }
     } else {
