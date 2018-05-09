@@ -27,7 +27,9 @@ class PersonnageManager {
 
         $pPerso->hydrate([
             'id' => $this->_db->lastInsertId(),
-            'degats' => 0
+            'degats' => 0,
+            'timeEndormi' => time(),
+            'atout' => 4
         ]);
     }
 
@@ -99,9 +101,10 @@ class PersonnageManager {
 
     /* Permet de mettre à jour les caractéristiques d'un personnage */
     public function update(Personnage $pPerso) {
-        $query = $this->_db->prepare('UPDATE personnages_v2 SET degats = ?, atout = ? WHERE id = ?');
+        $query = $this->_db->prepare('UPDATE personnages_v2 SET degats = ?, timeEndormi = ?, atout = ? WHERE id = ?');
         $query->execute([
             $pPerso->getDegats(),
+            $pPerso->getTimeEndormi(),
             $pPerso->getAtout(),
             $pPerso->getId()
         ]);

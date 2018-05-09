@@ -76,6 +76,26 @@ if (isset($_GET['frapper'])) {
         $message = 'Le personnage que vous voulez frapper n\'existe pas';
     }
 }
+
+//Ensorceler un personnage
+if (isset($_GET['ensorceler'])) {
+    if ($manager->exists((int) $_GET['ensorceler'])) {
+        $persoCible = $manager->get((int) $_GET['ensorceler']);
+
+        switch ($perso->lancerSort($persoCible)) {
+            case Personnage::CEST_MOI :
+                $message = 'Mais pourquoi voulez vous me frapper ?';
+                break;
+            case Personnage::PERSONNAGE_ENSORCELE :
+                $message = 'Vous venez d\'ensorceler le personnage !';
+                $manager->update($persoCible);
+                break;
+        }
+    } else {
+        $message = 'Le personnage que vous voulez ensorceler n\'existe pas';
+    }
+}
+
 ?>
 
 
@@ -122,16 +142,24 @@ if (isset($_GET['frapper'])) {
                 <legend>Qui frapper ?</legend>
                 <p>
                     <?
-                    $list = $manager->getList($perso->getNom());
+                        if ($perso->getTimeEndormi() > time()) {
+                            echo 'Votre personnage est endormi et ne peut pas frapper d\'autres personnages !';
+                        } else {
+                            $list = $manager->getList($perso->getNom());
 
-                    if (empty($list)) {
-                        echo 'Aucun personnage à frapper';
-                    } else {
-                        foreach ($list as $listValue) {
-                            echo '<a href="?frapper='.$listValue->getId().'">'.htmlspecialchars($listValue->getNom()).'</a>
-                                   (type : '.$listValue->getType().', dégâts : '.$listValue->getDegats().')<br />';
+                            if (empty($list)) {
+                                echo 'Aucun personnage à frapper';
+                            } else {
+                                foreach ($list as $listValue) {
+                                    echo '<a href="?frapper=' . $listValue->getId() . '">' . htmlspecialchars($listValue->getNom()) . '</a>
+                                   (type : ' . $listValue->getType() . ', dégâts : ' . $listValue->getDegats();
+                                if ($perso->getType() == "magicien") {
+                                    echo ' | <a href="?ensorceler=' . $listValue->getId() . '">Lancer un sort';
+                                }
+                            echo '<br/>';
+                                }
+                            }
                         }
-                    }
                     ?>
                 </p>
             </fieldset>

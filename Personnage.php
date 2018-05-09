@@ -16,6 +16,8 @@ abstract class Personnage {
     const CEST_MOI = 1;
     const PERSONNAGE_TUE = 2;
     const PERSONNAGE_BLESSE = 3;
+    const PERSONNAGE_ENDORMI = 4;
+    const PERSONNAGE_ENSORCELE = 5;
 
 
     /* Définition du constructeur */
@@ -50,8 +52,8 @@ abstract class Personnage {
         return $this->degats;
     }
 
-    public function getTimeendormi() {
-        return $this->timeEndormi;
+    public function getTimeEndormi() {
+        return (int) $this->timeEndormi;
     }
 
     public function getType() {
