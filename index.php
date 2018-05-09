@@ -87,7 +87,7 @@ if (isset($_GET['frapper'])) {
     </head>
 
     <body>
-    <p>Nombres de personnages créés : <?php echo $manager->count() ?></p>
+    <p>Nombres de personnages créés : <?= $manager->count() ?></p>
     <? if (isset($message)) { echo "<p>$message</p>"; } ?>
     <? if (!isset($perso)) { ?>
         <form action="index.php" method="post">
@@ -112,8 +112,10 @@ if (isset($_GET['frapper'])) {
             <fieldset>
                 <legend>Mes informations</legend>
                 <p>
-                    Nom : <? echo htmlspecialchars($perso->getNom()) ?><br/>
-                    Dégats : <? echo $perso->getDegats() ?>
+                    Nom : <?= htmlspecialchars($perso->getNom()) ?><br/>
+                    Type : <?= htmlspecialchars(ucfirst($perso->getType())); ?><br/>
+                    Dégats : <?= $perso->getDegats() ?><br/>
+                    Atout : <?= $perso->getAtout() ?>
                 </p>
             </fieldset>
             <fieldset>
@@ -127,7 +129,7 @@ if (isset($_GET['frapper'])) {
                     } else {
                         foreach ($list as $listValue) {
                             echo '<a href="?frapper='.$listValue->getId().'">'.htmlspecialchars($listValue->getNom()).'</a>
-                                   (dégâts : '.$listValue->getDegats().')<br />';
+                                   (type : '.$listValue->getType().', dégâts : '.$listValue->getDegats().')<br />';
                         }
                     }
                     ?>
