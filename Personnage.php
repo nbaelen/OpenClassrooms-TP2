@@ -106,10 +106,25 @@ abstract class Personnage {
 
     public function recevoirDegats($pDegats) {
         $this->degats += $pDegats;
+        $this->calculerAtout();
         if ($this->degats >= 100) {
             return self::PERSONNAGE_TUE;
         } else {
             return self::PERSONNAGE_BLESSE;
+        }
+    }
+
+    public function calculerAtout() {
+        if ($this->degats > 90) {
+            $this->setAtout(0);
+        } else if ($this->degats > 75) {
+            $this->setAtout(1);
+        } else if ($this->degats > 50) {
+            $this->setAtout(2);
+        } else if ($this->degats > 25) {
+            $this->setAtout(3);
+        } else {
+            $this->setAtout(4);
         }
     }
 }

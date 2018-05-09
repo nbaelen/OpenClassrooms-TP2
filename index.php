@@ -152,7 +152,7 @@ if (isset($_GET['ensorceler'])) {
                             } else {
                                 foreach ($list as $listValue) {
                                     echo '<a href="?frapper=' . $listValue->getId() . '">' . htmlspecialchars($listValue->getNom()) . '</a>
-                                   (type : ' . $listValue->getType() . ', dégâts : ' . $listValue->getDegats();
+                                   (type : ' . $listValue->getType() . ', dégâts : ' . $listValue->getDegats().')';
                                 if ($perso->getType() == "magicien") {
                                     echo ' | <a href="?ensorceler=' . $listValue->getId() . '">Lancer un sort';
                                 }
