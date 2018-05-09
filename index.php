@@ -47,8 +47,6 @@ if (isset($_POST['creer'], $_POST['nom']) &&  $_POST['nom'] != "" && ($_POST['ty
 //Utilisation d'un nouveau personnage
 if (isset($_POST['utiliser'], $_POST['nom']) &&  $_POST['nom'] != "") {
     if ($manager->exists($_POST['nom'])) {
-        $manager->checkLastLog($_POST['nom']);
-
         $perso = $manager->get($_POST['nom']);
     } else {
         $message = 'Ce personnage n\'existe pas !';
@@ -61,22 +59,19 @@ if (isset($_GET['frapper'])) {
     if ($manager->exists((int) $_GET['frapper'])) {
         $persoCible = $manager->get($_GET['frapper']);
 
-        switch($perso->frapper($persoCible)) {
+        switch($perso->frapper($persoCible,5)) {
             case Personnage::CEST_MOI :
                 $message = 'Mais pourquoi voulez vous me frapper ?';
                 break;
-            case Personnage::PERSONNAGE_TUE :
-                $message = 'Le personnage a été tué !';
-                $manager->delete($persoCible);
-                $manager->update($perso);
-                break;
-            case Personnage::PERSONNAGE_FRAPPE :
+            case Personnage::PERSONNAGE_BLESSE :
                 $message = 'Vous venez de frapper le personnage !';
                 $manager->update($persoCible);
                 $manager->update($perso);
                 break;
-            case Personnage::NOMBRE_COUP_DEPASSE :
-                $message = 'Vous avez dépassé le nombre de coup autorisé par jour !';
+            case Personnage::PERSONNAGE_TUE :
+                $message = 'Le personnage a été tué !';
+                $manager->deletePersonnage($persoCible);
+                $manager->update($perso);
                 break;
         }
     } else {

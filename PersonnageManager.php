@@ -58,7 +58,7 @@ class PersonnageManager {
         return (bool) $query->fetchColumn();
     }
 
-    /* Renvoie un tableau contenant les informations sur le personnage demandé */
+    /* Renvoie le personnage demandé */
     public function get($pPerso) {
         if (is_numeric($pPerso)) {
             $query = $this->_db->prepare('SELECT id, nom, degats, timeEndormi, type, atout FROM personnages_v2 WHERE id = ?');
@@ -66,7 +66,13 @@ class PersonnageManager {
             $query = $this->_db->prepare('SELECT id, nom, degats, timeEndormi, type, atout FROM personnages_v2 WHERE id = ?');
         }
         $query->execute([$pPerso]);
-        return $query->fetch(PDO::FETCH_ASSOC);
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+
+        if ($data['type'] == "guerrier") {
+            return new Guerrier($data);
+        } else {
+            return new Magicien($data);
+        }
     }
 
     /* Renvoie un tableau contenant tout les personnages, sauf celui envoyé en paramètre */
