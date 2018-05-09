@@ -103,8 +103,8 @@ abstract class Personnage {
     }
 
     public function recevoirDegats($pDegats) {
-        $this->degats -= $pDegats;
-        if ($this->degats <= 0) {
+        $this->degats += $pDegats;
+        if ($this->degats >= 100) {
             return self::PERSONNAGE_TUE;
         } else {
             return self::PERSONNAGE_BLESSE;

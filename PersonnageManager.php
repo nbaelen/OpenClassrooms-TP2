@@ -98,7 +98,7 @@ class PersonnageManager {
 
     /* Permet de mettre à jour les caractéristiques d'un personnage */
     public function update(Personnage $pPerso) {
-        $query = $this->_db->prepare('UPDATE personnages SET degats = ?, atout = ? WHERE id = ?');
+        $query = $this->_db->prepare('UPDATE personnages_v2 SET degats = ?, atout = ? WHERE id = ?');
         $query->execute([
             $pPerso->getDegats(),
             $pPerso->getAtout(),
