@@ -127,4 +127,14 @@ abstract class Personnage {
             $this->setAtout(4);
         }
     }
+
+    public function reveil() {
+        $temps = $this->timeEndormi - time();
+
+        $heures = floor($temps / 3600);
+        $minutes = floor(($temps - ($heures * 3600)) / 60);
+        $secondes = floor ($temps - ($heures * 3600) - ($minutes * 60));
+
+        return $heures.'h '.$minutes.'m '.$secondes.'s';
+    }
 }

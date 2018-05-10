@@ -143,7 +143,7 @@ if (isset($_GET['ensorceler'])) {
                 <p>
                     <?
                         if ($perso->getTimeEndormi() > time()) {
-                            echo 'Votre personnage est endormi et ne peut pas frapper d\'autres personnages !';
+                            echo 'Votre personnage est endormi pour '.$perso->reveil().' et ne peut pas frapper d\'autres personnages !';
                         } else {
                             $list = $manager->getList($perso->getNom());
 
