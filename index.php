@@ -90,6 +90,9 @@ if (isset($_GET['ensorceler'])) {
                 $message = 'Vous venez d\'ensorceler le personnage !';
                 $manager->update($persoCible);
                 break;
+            case Personnage::PAS_DE_MAGIE :
+                $message = 'Vous n\'avez pas assez de magie pour ensorceler le personnage !';
+                break;
         }
     } else {
         $message = 'Le personnage que vous voulez ensorceler n\'existe pas';

@@ -18,6 +18,7 @@ abstract class Personnage {
     const PERSONNAGE_BLESSE = 3;
     const PERSONNAGE_ENDORMI = 4;
     const PERSONNAGE_ENSORCELE = 5;
+    const PAS_DE_MAGIE = 6;
 
 
     /* Définition du constructeur */

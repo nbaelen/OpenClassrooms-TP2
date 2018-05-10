@@ -6,10 +6,15 @@ class Magicien extends Personnage {
 
     /* Permet de lancer un sort qui endort la cible */
     public function lancerSort(Personnage $pCible) {
-        $temps = ($this->atout * 6) * 3600;
-        $pCible->setTimeEndormi(time() + $temps);
+        if ($this->atout == 0) {
+            return self::PAS_DE_MAGIE;
+        } else {
+            $temps = ($this->atout * 6) * 3600;
+            $pCible->setTimeEndormi(time() + $temps);
 
-        return self::PERSONNAGE_ENSORCELE;
+            return self::PERSONNAGE_ENSORCELE;
+        }
+
     }
 
 }
