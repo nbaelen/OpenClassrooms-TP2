@@ -70,11 +70,8 @@ class PersonnageManager {
         $query->execute([$pPerso]);
         $data = $query->fetch(PDO::FETCH_ASSOC);
 
-        if ($data['type'] == "guerrier") {
-            return new Guerrier($data);
-        } else {
-            return new Magicien($data);
-        }
+        $class = ucfirst($data['type']);
+        return new $class($data);
     }
 
 
@@ -89,11 +86,8 @@ class PersonnageManager {
 
         $personnages = [];
         while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
-            if ($data['type'] == "guerrier") {
-                $personnages[] = new Guerrier($data);
-            } else {
-                $personnages[] = new Magicien($data);
-            }
+            $class = ucfirst($data['type']);
+            $personnages[] = new $class($data);
         }
 
         return $personnages;
