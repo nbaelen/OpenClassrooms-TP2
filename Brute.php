@@ -10,7 +10,7 @@ class Brute extends Personnage {
             return self::CEST_MOI;
         } else {
             $degats = $pDegats + $this->atout;
-            return $pCible->recevoirDegats((int) $pDegats);
+            return $pCible->recevoirDegats((int) $degats);
         }
     }
 }

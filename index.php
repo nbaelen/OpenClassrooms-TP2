@@ -30,15 +30,12 @@ $manager = new PersonnageManager($db);
 
 
 //Création d'un nouveau personnage
-if (isset($_POST['creer'], $_POST['nom']) &&  $_POST['nom'] != "" && ($_POST['type'] == "guerrier" || $_POST['type'] == "magicien")) {
+if (isset($_POST['creer'], $_POST['nom']) &&  $_POST['nom'] != "") {
     if ($manager->exists($_POST['nom'])) {
         $message = 'Ce nom de personnage est déjà utilisé !';
     } else {
-        if ($_POST['type'] == "guerrier") {
-            $perso = new Guerrier(['nom' => $_POST['nom']]);
-        } else {
-            $perso = new Magicien(['nom' => $_POST['nom']]);
-        }
+        $class = ucfirst($_POST['type']);
+        $perso = new $class(['nom' => $_POST['nom']]);
         $manager->addPersonnage($perso);
     }
 }
@@ -122,6 +119,7 @@ if (isset($_GET['ensorceler'])) {
                 <select name="type" id="type">
                     <option value="magicien">Magicien</option>
                     <option value="guerrier">Guerrier</option>
+                    <option value="brute">Brute</option>
                 </select>
                 <input type="submit" name="creer" value="Créer ce personnage">
 
